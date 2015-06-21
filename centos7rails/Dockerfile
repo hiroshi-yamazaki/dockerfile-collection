@@ -7,8 +7,8 @@ RUN	useradd ec2-user -G wheel
 RUN	echo "ec2-user:1234qwer" | chpasswd
 # end
 
-RUN	yum install -y http://ftp.iij.ad.jp/pub/linux/fedora/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
-RUN	yum install -y sudo wget tar bzip2 bzip2-devel openssh-server openssl openssl-devel man telnet zip unzip supervisor curl-devel git sqlite sqlite-devel libxml2-devel gcc gcc-c++ make automake libffi-devel patch redis libyaml-devel readline-devel zlib-devel bison-devel autoconf yacc bind-utils MariaDB-client MariaDB-devel MariaDB-server nodejs nginx
+RUN	yum install -y epel-release
+RUN	yum install -y sudo wget tar bzip2 bzip2-devel openssh-server openssl openssl-devel man telnet zip unzip supervisor curl-devel git sqlite sqlite-devel libxml2-devel gcc gcc-c++ make automake libffi-devel patch redis libyaml-devel readline-devel zlib-devel bison-devel autoconf yacc bind-utils MariaDB-client MariaDB-devel MariaDB-server nodejs nginx hostname sysvinit-tools initscripts passwd tcpdump
 
 # this is for docker build
 ENV	RBENV_ROOT	/opt/rbenv
@@ -22,10 +22,8 @@ RUN	git clone https://github.com/sstephenson/ruby-build.git ${RBENV_ROOT}/plugin
 ADD	etc/profile.d/rbenv.sh /etc/profile.d/rbenv.sh
 RUN	${RBENV_ROOT}/plugins/ruby-build/install.sh
 
-RUN	xargs -L 1 rbenv install 2.1.5
-RUN	bash -l -c 'rbenv global 2.1.5; gem install bundler;'
-
-RUN	yum install -y hostname sysvinit-tools initscripts passwd tcpdump 
+RUN	xargs -L 1 rbenv install 2.1.6
+RUN	bash -l -c 'rbenv global 2.1.6; gem install bundler;'
 
 # for centos7 docker
 RUN	/usr/bin/ssh-keygen -t rsa -b 2048 -f /etc/ssh/ssh_host_rsa_key -N ""
