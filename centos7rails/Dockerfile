@@ -38,6 +38,8 @@ ADD	etc/supervisord.d/sshd.ini /etc/supervisord.d/sshd.ini
 ADD	etc/supervisord.d/redis.ini /etc/supervisord.d/redis.ini
 # end
 
+RUN sed -e -i "s/^bind 127\.0\.0\.1$/bind 0.0.0.0/g" /etc/redis.conf
+
 EXPOSE 22 80 3306 6379
 CMD ["/usr/bin/supervisord"]
 
