@@ -22,8 +22,8 @@ RUN	git clone https://github.com/sstephenson/ruby-build.git ${RBENV_ROOT}/plugin
 ADD	etc/profile.d/rbenv.sh /etc/profile.d/rbenv.sh
 RUN	${RBENV_ROOT}/plugins/ruby-build/install.sh
 
-RUN	xargs -L 1 rbenv install 2.1.6
-RUN	bash -l -c 'rbenv global 2.1.6; gem install bundler;'
+RUN	xargs -L 1 rbenv install 2.2.0
+RUN	bash -l -c 'rbenv global 2.2.0; gem install bundler;'
 
 # for centos7 docker
 RUN	/usr/bin/ssh-keygen -t rsa -b 2048 -f /etc/ssh/ssh_host_rsa_key -N ""
