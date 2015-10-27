@@ -8,7 +8,7 @@ RUN	echo "ec2-user:1234qwer" | chpasswd
 # end
 
 RUN	yum install -y epel-release
-RUN	yum install -y sudo wget tar bzip2 bzip2-devel openssh-server openssl openssl-devel man telnet zip unzip supervisor curl-devel git sqlite sqlite-devel libxml2-devel gcc gcc-c++ make automake libffi-devel patch redis libyaml-devel readline-devel zlib-devel bison-devel autoconf yacc bind-utils MariaDB-client MariaDB-devel MariaDB-server nodejs nginx hostname sysvinit-tools initscripts passwd tcpdump libv8-devel ImageMagick-devel vim-enhanced
+RUN	yum install -y sudo wget tar bzip2 bzip2-devel openssh-server openssl openssl-devel man telnet zip unzip supervisor curl-devel git sqlite sqlite-devel libxml2-devel gcc gcc-c++ make automake libffi-devel patch redis libyaml-devel readline-devel zlib-devel bison-devel autoconf yacc bind-utils MariaDB-client MariaDB-devel MariaDB-server nodejs nginx hostname sysvinit-tools initscripts passwd tcpdump libv8-devel ImageMagick-devel vim-enhanced v8-devel
 
 # this is for docker build
 ENV	RBENV_ROOT	/opt/rbenv
