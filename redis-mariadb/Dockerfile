@@ -8,7 +8,7 @@ RUN	echo "ec2-user:1234qwer" | chpasswd
 # end
 
 RUN	yum install -y epel-release
-RUN	yum install -y sudo wget tar bzip2 openssh-server openssl man zip unzip supervisor curl git redis MariaDB-client MariaDB-server hostname sysvinit-tools initscripts passwd
+RUN	yum install -y sudo wget tar bzip2 openssh-server openssl man zip unzip curl git redis MariaDB-client MariaDB-server hostname sysvinit-tools initscripts passwd
 
 RUN sed -i -e "s/^bind 127\.0\.0\.1$/bind 0.0.0.0/g" /etc/redis.conf
 
