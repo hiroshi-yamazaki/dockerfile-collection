@@ -8,9 +8,7 @@ RUN	echo "ec2-user:1234qwer" | chpasswd
 # end
 
 RUN	yum install -y epel-release
-RUN	yum install -y sudo wget tar bzip2 openssh-server openssl man zip unzip curl git redis MariaDB-client MariaDB-server hostname sysvinit-tools initscripts passwd
-
-RUN sed -i -e "s/^bind 127\.0\.0\.1$/bind 0.0.0.0/g" /etc/redis.conf
+RUN	yum install -y sudo wget tar bzip2 openssh-server openssl man zip unzip curl git MariaDB-client MariaDB-server hostname sysvinit-tools initscripts passwd
 
 WORKDIR	/root/
 ADD	mysql-init.sql /root/mysql-init.sql
@@ -18,7 +16,6 @@ RUN	/etc/init.d/mysql start && sleep 15; mysql -u root < mysql-init.sql && rm my
 
 RUN /usr/bin/systemctl enable sshd.service
 RUN /usr/bin/systemctl enable mariadb.service
-RUN /usr/bin/systemctl enable redis.service
 
-EXPOSE 22 3306 6379
+EXPOSE 22 3306
 CMD ["/sbin/init"]
