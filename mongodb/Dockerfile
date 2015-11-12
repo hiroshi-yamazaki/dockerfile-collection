@@ -11,7 +11,7 @@ RUN	yum install -y sudo wget tar bzip2 openssh-server openssl man zip unzip curl
 
 
 RUN /usr/bin/systemctl enable sshd.service
-RUN /usr/bin/systemctl enable mongodb.service
+RUN /usr/bin/systemctl enable mongod.service
 
 EXPOSE 22 27017
 CMD ["/sbin/init"]
