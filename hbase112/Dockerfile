@@ -13,6 +13,7 @@ RUN	yum install -y java-1.8.0-openjdk
 RUN wget http://ftp.jaist.ac.jp/pub/apache/hbase/stable/hbase-1.1.2-bin.tar.gz -P /opt
 WORKDIR	/opt
 RUN tar zxvf hbase-1.1.2-bin.tar.gz
+RUN ln -s hbase-1.1.2 hbase
 RUN rm hbase-1.1.2-bin.tar.gz
 
 WORKDIR	/
