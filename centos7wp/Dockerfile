@@ -10,7 +10,7 @@ RUN	yum install -y epel-release
 RUN	yum install -y sudo wget tar bzip2 openssh-server openssl man telnet zip unzip curl git bind-utils hostname sysvinit-tools initscripts passwd postfix
 RUN	yum install -y mariadb-server mariadb-client
 RUN	yum install -y nginx
-RUN	yum install -y php php-mbsring php-pdo php-mysql php-fpm php-xml
+RUN	yum install -y php php-mbstring php-pdo php-mysql php-fpm php-xml
 RUN	yum install -y w3m
 
 RUN	rm /etc/localtime
