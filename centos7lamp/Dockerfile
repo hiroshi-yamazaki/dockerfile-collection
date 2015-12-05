@@ -7,7 +7,11 @@ RUN	echo "ec2-user:1234qwer" | chpasswd
 # end
 
 RUN	yum install -y epel-release
-RUN	yum install -y sudo wget tar bzip2 bzip2-devel openssh-server openssl openssl-devel man telnet zip unzip curl-devel git sqlite sqlite-devel libxml2-devel gcc gcc-c++ make automake libffi-devel patch libyaml-devel readline-devel zlib-devel bison-devel autoconf yacc bind-utils mariadb-client mariadb-devel mariadb-server hostname sysvinit-tools initscripts passwd tcpdump ImageMagick-devel vim-enhanced httpd php php-mbstring php-pdo php-mysql php-fpm postfix
+RUN	yum install -y sudo wget tar bzip2 openssh-server openssl man telnet zip unzip curl git bind-utils hostname sysvinit-tools initscripts passwd postfix
+RUN	yum install -y mariadb-server mariadb-client
+RUN	yum install -y httpd
+RUN	yum install -y php php-mbsring php-pdo php-mysql php-fpm php-xml
+RUN	yum install -y w3m
 
 RUN	rm /etc/localtime
 RUN	ln -s /usr/share/zoneinfo/Japan /etc/localtime
