@@ -6,7 +6,9 @@ RUN	useradd ec2-user -G wheel
 RUN	echo "ec2-user:1234qwer" | chpasswd
 # end
 
+RUN yum install -y http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
 RUN	yum install -y epel-release
+RUN yum clean all
 RUN	yum install -y sudo wget tar bzip2 openssh-server openssl man telnet zip unzip curl git bind-utils hostname sysvinit-tools initscripts passwd postfix
 RUN	yum install -y mariadb-server mariadb-client
 RUN	yum install -y nginx
