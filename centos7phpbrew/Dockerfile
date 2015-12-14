@@ -28,8 +28,10 @@ RUN echo "[[ -e ${PHPBREW_ROOT}/bashrc ]] && source ${PHPBREW_ROOT}/bashrc" > /e
 RUN source /etc/profile.d/phpbrew.sh
 
 RUN phpbrew update
-RUN phpbrew install -j 2 7.0.0 +default +mysql +pdo +openssl=/usr -- --with-libdir=lib64
+RUN phpbrew install -j 2 7.0.0 +default +fpm +mysql +pdo +openssl=/usr -- --with-libdir=lib64 
 RUN phpbrew switch php-7.0.0
+
+ENV PHPBREW_PHP=php-7.0.0
 
 RUN	/usr/bin/systemctl enable sshd.service
 
