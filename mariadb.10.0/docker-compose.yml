@@ -1,0 +1,5 @@
+mariadb:
+  build: .
+  hostname: mariadb100
+  ports:
+    - "3306:3306"
