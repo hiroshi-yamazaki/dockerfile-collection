@@ -1,9 +1,14 @@
 - build container
 ```
-docker build -t redis:latest .
+docker-compose build
 ```
 
 - run container
 ```
-docker run --privileged -d -i -p 6379:6379 -t -h 'redis' --name 'redis.sample' redis:latest
+docker-compose up -d 2.8
+```
+
+- stop container
+```
+docker-compose stop 2.8
 ```

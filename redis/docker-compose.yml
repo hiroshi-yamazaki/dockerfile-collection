@@ -1,0 +1,6 @@
+"2.8":
+  build: ./2.8
+  hostname: redis28
+  ports:
+    - "6379:6379"
+ 
