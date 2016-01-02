@@ -1,0 +1,15 @@
+"10.1":
+  build: ./10.1
+  hostname: mariadb101
+  ports:
+    - "3306:3306"
+"10.0":
+  build: ./10.0
+  hostname: mariadb100
+  ports:
+    - "3306:3306"
+"5.5":
+  build: ./5.5
+  hostname: mariadb55
+  ports:
+    - "3306:3306"
