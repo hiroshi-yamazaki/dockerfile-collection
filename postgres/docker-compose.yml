@@ -1,0 +1,10 @@
+"9.2":
+  build: ./9.2
+  hostname: postgres92
+  ports:
+    - "5432:5432"
+"9.4":
+  build: ./9.4
+  hostname: postgres94
+  ports:
+    - "5432:5432"
