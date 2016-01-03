@@ -8,3 +8,15 @@
   hostname: postgres94
   ports:
     - "5432:5432"
+"9.4-master":
+  build: ./9.4-repl
+  hostname: postgres94m
+  ports:
+    - "5432:5432"
+  links:
+    - "9.4-slave"
+"9.4-slave":
+  build: ./9.4-repl
+  hostname: postgres94s
+  ports:
+    - "5432:5432"
