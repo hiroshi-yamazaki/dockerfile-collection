@@ -1,0 +1,34 @@
+data:
+  build: ./data
+  hostname: data
+  tty: true
+  stdin_open: true
+php:
+  build: ./php
+  hostname: php
+  tty: true
+  stdin_open: true
+  expose:
+    - 9000
+  links:
+    - db
+  volumes_from:
+    - data
+nginx:
+  build: ./nginx
+  hostname: nginx
+  tty: true
+  stdin_open: true
+  expose:
+    - 80:80
+  ports:
+    - 80:80
+  links:
+    - php
+  volumes_from:
+    - data
+db:
+  image: mariadb_5.5
+  hostname: mariadb
+  tty: true
+  stdin_open: true
