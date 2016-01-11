@@ -17,13 +17,26 @@ RUN mv phpbrew /usr/local/bin/
 ENV PHPBREW_ROOT /opt/phpbrew
 ENV PHPBREW_HOME /opt/phpbrew
 
+ENV PHPBREWSCRIPT /etc/profile.d/phpbrew.sh
 RUN phpbrew init
-RUN echo "[[ -e ${PHPBREW_ROOT}/bashrc ]] && source ${PHPBREW_ROOT}/bashrc" > /etc/profile.d/phpbrew.sh
-RUN source /etc/profile.d/phpbrew.sh
+RUN echo "export PHPBREW_ROOT=${PHPBREW_ROOT}" > ${PHPBREWSCRIPT}
+RUN echo "[[ -e ${PHPBREW_ROOT}/bashrc ]] && source ${PHPBREW_ROOT}/bashrc" >> ${PHPBREWSCRIPT}
+RUN source ${PHPBREWSCRIPT}
 
 ENV PHP_VERSION 7.0.1
 RUN phpbrew update
 RUN phpbrew install -j 2 ${PHP_VERSION} +default +fpm +mysql +pdo +openssl=/usr -- --with-libdir=lib64 
-RUN phpbrew switch php-${PHP_VERSION}
 
 ENV PHPBREW_PHP "php-${PHP_VERSION}"
+ENV PHPBREW_PATH /opt/phpbrew/php/php-${PHP_VERSION}/bin
+RUN source ${PHPBREW_ROOT}/bashrc
+
+ENV PHPBREWINIT ${PHPBREW_ROOT}/init
+RUN echo "export PHPBREW_ROOT=${PHPBREW_ROOT}" >  ${PHPBREWINIT}
+RUN echo "export PHPBREW_HOME=${PHPBREW_HOME}" >> ${PHPBREWINIT}
+RUN echo "export PHPBREW_LOOKUP_PREFIX=" >> ${PHPBREWINIT}
+RUN echo "export PHPBREW_PHP=php-${PHP_VERSION}" >> ${PHPBREWINIT}
+RUN echo "export PHPBREW_PATH=${PHPBREW_ROOT}/php/php-${PHP_VERSION}/bin" >> ${PHPBREWINIT}
+
+EXPOSE 9000
+RUN phpbrew switch php-${PHP_VERSION}
