@@ -1,0 +1,30 @@
+db:
+  image: mariadb_10.0
+  hostname: db
+  tty: true
+  stdin_open: true
+  expose:
+    - 3306
+  ports:
+    - 3306:3306
+redis:
+  image: redis_2.8
+  hostname: redis
+  tty: true
+  stdin_open: true
+  expose:
+    - 6379
+  ports:
+    - 6379:6379
+app:
+  build: ./app
+  hostname: app
+  tty: true
+  stdin_open: true
+  expose:
+    - 3000
+  ports:
+    - 3000:3000
+  links:
+    - db
+    - redis
