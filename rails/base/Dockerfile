@@ -30,6 +30,8 @@ RUN yum install -y sudo \
  nodejs \
  npm \
  v8-devel \
+ patch \
+ libxslt-devel \
  ImageMagick-devel 
 
 # this is for docker build
