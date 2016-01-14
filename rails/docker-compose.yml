@@ -1,0 +1,8 @@
+base:
+  build: ./base
+  tty: true
+  stdin_open: true
+  expose:
+    - 3000
+  ports:
+    - 3000:3000
