@@ -34,6 +34,7 @@ EXPOSE 22 9200 9300
 USER	elasticsearch
 RUN	./bin/plugin install royrusso/elasticsearch-HQ
 RUN	./bin/plugin install mobz/elasticsearch-head
-RUN	./bin/plugin install polyfractal/elasticsearch-inquisitor	
+RUN	./bin/plugin install polyfractal/elasticsearch-inquisitor
+RUN	./bin/plugin install elasticsearch/elasticsearch-analysis-kuromoji/2.5.0
 CMD ["elasticsearch", "-Des.default.path.home=${ES_HOME}", "-Des.default.path.logs=${LOG_DIR}", "-Des.default.path.data=${DATA_DIR}", "-Des.default.path.conf=${CONF_DIR}"]
 
