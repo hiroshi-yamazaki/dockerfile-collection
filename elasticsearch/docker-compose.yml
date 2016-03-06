@@ -6,3 +6,6 @@
   expose:
     - 9200
     - 9300
+  tty: true
+  stdin_open: true
+  hostname: es22
