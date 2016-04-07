@@ -1,0 +1,9 @@
+"2.10":
+  build: ./2.10
+  hostname: postfix
+  ports:
+    - "25:25"
+    - "578:578"
+  expose:
+    - "25"
+    - "578"
