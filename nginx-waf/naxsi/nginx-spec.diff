@@ -1,0 +1,26 @@
+--- nginx.spec.orig     2016-05-06 17:09:58.177906470 +0000
++++ nginx.spec  2016-05-06 17:11:02.896514835 +0000
+@@ -121,6 +121,7 @@ BuildRequires: libGeoIP-devel
+         --with-mail_ssl_module \
+         --with-file-aio \
+         --with-ipv6 \
++       --add-module=./naxsi_src \
+         %{?with_http2:--with-http_v2_module}")
+
+ Summary: High performance web server
+@@ -144,6 +145,7 @@ Source10: nginx.suse.logrotate
+ Source11: nginx-debug.service
+ Source12: COPYRIGHT
+ Source13: njs-%{module_njs_shaid}.tar.gz
++Source14: naxsi.tar.gz
+
+ License: 2-clause BSD-like license
+
+@@ -212,6 +214,7 @@ Dynamic nJScript module for nginx.
+ %prep
+ %setup -q
+ tar xvzf %SOURCE13
++tar xvzf %SOURCE14
+ cp %{SOURCE2} .
+ sed -e 's|%%DEFAULTSTART%%|2 3 4 5|g' -e 's|%%DEFAULTSTOP%%|0 1 6|g' \
+     -e 's|%%PROVIDES%%|nginx|g' < %{SOURCE2} > nginx.init
