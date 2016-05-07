@@ -29,7 +29,8 @@ RUN yum install -y openssl \
 
 RUN tar czf naxsi.tar.gz -C /root/naxsi/ naxsi_src
 RUN mv naxsi.tar.gz /root/rpmbuild/SOURCES/naxsi.tar.gz
+RUN cp /root/naxsi/naxsi_config/naxsi_core.rules /root/rpmbuild/SOURCES/naxsi_core.rules
 
 ADD nginx-spec.diff /root/rpmbuild/SPECS/nginx-spec.diff
-RUN cd /root/rpmbuild/SPECS/ && patch -u nginx.spec < nginx-spec.diff
+RUN patch -u /root/rpmbuild/SPECS/nginx.spec < /root/rpmbuild/SPECS/nginx-spec.diff
 RUN rpmbuild -ba /root/rpmbuild/SPECS/nginx.spec

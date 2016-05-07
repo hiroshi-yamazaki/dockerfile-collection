@@ -1,22 +1,23 @@
---- nginx.spec.orig     2016-05-06 17:09:58.177906470 +0000
-+++ nginx.spec  2016-05-06 17:11:02.896514835 +0000
+--- nginx.spec.orig     2016-05-07 02:19:32.706550547 +0000
++++ nginx.spec  2016-05-07 02:34:36.390303555 +0000
 @@ -121,6 +121,7 @@ BuildRequires: libGeoIP-devel
          --with-mail_ssl_module \
          --with-file-aio \
          --with-ipv6 \
-+       --add-module=./naxsi_src \
++        --add-module=./naxsi_src \
          %{?with_http2:--with-http_v2_module}")
 
  Summary: High performance web server
-@@ -144,6 +145,7 @@ Source10: nginx.suse.logrotate
+@@ -144,6 +145,8 @@ Source10: nginx.suse.logrotate
  Source11: nginx-debug.service
  Source12: COPYRIGHT
  Source13: njs-%{module_njs_shaid}.tar.gz
 +Source14: naxsi.tar.gz
++Source15: naxsi_core.rules
 
  License: 2-clause BSD-like license
 
-@@ -212,6 +214,7 @@ Dynamic nJScript module for nginx.
+@@ -212,6 +215,7 @@ Dynamic nJScript module for nginx.
  %prep
  %setup -q
  tar xvzf %SOURCE13
@@ -24,3 +25,20 @@
  cp %{SOURCE2} .
  sed -e 's|%%DEFAULTSTART%%|2 3 4 5|g' -e 's|%%DEFAULTSTOP%%|0 1 6|g' \
      -e 's|%%PROVIDES%%|nginx|g' < %{SOURCE2} > nginx.init
+@@ -276,6 +280,8 @@ cd $RPM_BUILD_ROOT%{_sysconfdir}/nginx &
+     $RPM_BUILD_ROOT%{_sysconfdir}/nginx/nginx.conf
+ %{__install} -m 644 -p %{SOURCE5} \
+     $RPM_BUILD_ROOT%{_sysconfdir}/nginx/conf.d/default.conf
++%{__install} -m 644 -p %{SOURCE15} \
++    $RPM_BUILD_ROOT%{_sysconfdir}/nginx/naxsi_core.rules
+
+ %{__mkdir} -p $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig
+ %{__install} -m 644 -p %{SOURCE3} \
+@@ -349,6 +355,7 @@ cd $RPM_BUILD_ROOT%{_sysconfdir}/nginx &
+ %config(noreplace) %{_sysconfdir}/nginx/koi-utf
+ %config(noreplace) %{_sysconfdir}/nginx/koi-win
+ %config(noreplace) %{_sysconfdir}/nginx/win-utf
++%config(noreplace) %{_sysconfdir}/nginx/naxsi_core.rules
+
+ %config(noreplace) %{_sysconfdir}/logrotate.d/nginx
+ %config(noreplace) %{_sysconfdir}/sysconfig/nginx
