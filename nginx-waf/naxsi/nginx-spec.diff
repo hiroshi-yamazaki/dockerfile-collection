@@ -1,12 +1,37 @@
---- nginx.spec.orig     2016-05-07 02:19:32.706550547 +0000
-+++ nginx.spec  2016-05-07 02:34:36.390303555 +0000
+--- nginx.spec.orig	2016-05-07 03:25:25.773819914 +0000
++++ nginx.spec	2016-05-07 03:25:01.250258888 +0000
+@@ -62,18 +62,18 @@ BuildRequires: libGeoIP-devel
+ # end of distribution specific definitions
+ 
+ %define main_version                 1.9.15
+-%define main_release                 1%{?dist}.ngx
++%define main_release                 1%{?dist}.ngx_oro
+ %define module_xslt_version          %{main_version}
+-%define module_xslt_release          1%{?dist}.ngx
++%define module_xslt_release          1%{?dist}.ngx_oro
+ %define module_geoip_version         %{main_version}
+-%define module_geoip_release         1%{?dist}.ngx
++%define module_geoip_release         1%{?dist}.ngx_oro
+ %define module_image_filter_version  %{main_version}
+-%define module_image_filter_release  1%{?dist}.ngx
++%define module_image_filter_release  1%{?dist}.ngx_oro
+ %define module_perl_version          %{main_version}
+-%define module_perl_release          1%{?dist}.ngx
++%define module_perl_release          1%{?dist}.ngx_oro
+ %define module_njs_shaid             1c50334fbea6
+ %define module_njs_version           0.0.20160414.%{module_njs_shaid}
+-%define module_njs_release           1%{?dist}.ngx
++%define module_njs_release           1%{?dist}.ngx_oro
+ 
+ %define bdir %{_builddir}/%{name}-%{main_version}
+ 
 @@ -121,6 +121,7 @@ BuildRequires: libGeoIP-devel
          --with-mail_ssl_module \
          --with-file-aio \
          --with-ipv6 \
 +        --add-module=./naxsi_src \
          %{?with_http2:--with-http_v2_module}")
-
+ 
  Summary: High performance web server
 @@ -144,6 +145,8 @@ Source10: nginx.suse.logrotate
  Source11: nginx-debug.service
@@ -14,9 +39,9 @@
  Source13: njs-%{module_njs_shaid}.tar.gz
 +Source14: naxsi.tar.gz
 +Source15: naxsi_core.rules
-
+ 
  License: 2-clause BSD-like license
-
+ 
 @@ -212,6 +215,7 @@ Dynamic nJScript module for nginx.
  %prep
  %setup -q
@@ -31,7 +56,7 @@
      $RPM_BUILD_ROOT%{_sysconfdir}/nginx/conf.d/default.conf
 +%{__install} -m 644 -p %{SOURCE15} \
 +    $RPM_BUILD_ROOT%{_sysconfdir}/nginx/naxsi_core.rules
-
+ 
  %{__mkdir} -p $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig
  %{__install} -m 644 -p %{SOURCE3} \
 @@ -349,6 +355,7 @@ cd $RPM_BUILD_ROOT%{_sysconfdir}/nginx &
@@ -39,6 +64,6 @@
  %config(noreplace) %{_sysconfdir}/nginx/koi-win
  %config(noreplace) %{_sysconfdir}/nginx/win-utf
 +%config(noreplace) %{_sysconfdir}/nginx/naxsi_core.rules
-
+ 
  %config(noreplace) %{_sysconfdir}/logrotate.d/nginx
  %config(noreplace) %{_sysconfdir}/sysconfig/nginx
