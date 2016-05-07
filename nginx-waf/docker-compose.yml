@@ -1,3 +1,6 @@
 naxsi:
   build: ./naxsi
+
+modsecurity:
+  build: ./modsecurity
   

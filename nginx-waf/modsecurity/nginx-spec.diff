@@ -1,0 +1,56 @@
+--- nginx.spec.orig	2016-05-07 11:16:08.336041131 +0000
++++ nginx.spec	2016-05-07 11:49:45.024682778 +0000
+@@ -62,18 +62,18 @@ BuildRequires: libGeoIP-devel
+ # end of distribution specific definitions
+ 
+ %define main_version                 1.9.15
+-%define main_release                 1%{?dist}.ngx
++%define main_release                 1%{?dist}.ngx_oro
+ %define module_xslt_version          %{main_version}
+-%define module_xslt_release          1%{?dist}.ngx
++%define module_xslt_release          1%{?dist}.ngx_oro
+ %define module_geoip_version         %{main_version}
+-%define module_geoip_release         1%{?dist}.ngx
++%define module_geoip_release         1%{?dist}.ngx_oro
+ %define module_image_filter_version  %{main_version}
+-%define module_image_filter_release  1%{?dist}.ngx
++%define module_image_filter_release  1%{?dist}.ngx_oro
+ %define module_perl_version          %{main_version}
+-%define module_perl_release          1%{?dist}.ngx
++%define module_perl_release          1%{?dist}.ngx_oro
+ %define module_njs_shaid             1c50334fbea6
+ %define module_njs_version           0.0.20160414.%{module_njs_shaid}
+-%define module_njs_release           1%{?dist}.ngx
++%define module_njs_release           1%{?dist}.ngx_oro
+ 
+ %define bdir %{_builddir}/%{name}-%{main_version}
+ 
+@@ -121,6 +121,7 @@ BuildRequires: libGeoIP-devel
+         --with-mail_ssl_module \
+         --with-file-aio \
+         --with-ipv6 \
++        --add-module=./modsecurity-2.9.1/nginx/modsecurity \
+         %{?with_http2:--with-http_v2_module}")
+ 
+ Summary: High performance web server
+@@ -144,6 +145,7 @@ Source10: nginx.suse.logrotate
+ Source11: nginx-debug.service
+ Source12: COPYRIGHT
+ Source13: njs-%{module_njs_shaid}.tar.gz
++Source14: modsecurity-2.9.1.tar.gz
+ 
+ License: 2-clause BSD-like license
+ 
+@@ -217,6 +219,12 @@ sed -e 's|%%DEFAULTSTART%%|2 3 4 5|g' -e
+     -e 's|%%PROVIDES%%|nginx|g' < %{SOURCE2} > nginx.init
+ sed -e 's|%%DEFAULTSTART%%||g' -e 's|%%DEFAULTSTOP%%|0 1 2 3 4 5 6|g' \
+     -e 's|%%PROVIDES%%|nginx-debug|g' < %{SOURCE2} > nginx-debug.init
++tar xvzf %SOURCE14
++cd modsecurity-2.9.1
++./autogen.sh
++./configure --enable-standalone-module --disable-mlogc
++make
++cd ..
+ 
+ %build
+ ./configure %{COMMON_CONFIGURE_ARGS} \
