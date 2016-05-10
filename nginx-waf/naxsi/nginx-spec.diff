@@ -1,5 +1,5 @@
---- nginx.spec.orig	2016-05-07 03:25:25.773819914 +0000
-+++ nginx.spec	2016-05-07 03:25:01.250258888 +0000
+--- nginx.spec.orig	2016-04-19 17:19:41.000000000 +0000
++++ nginx.spec	2016-05-10 22:00:06.121018827 +0000
 @@ -62,18 +62,18 @@ BuildRequires: libGeoIP-devel
  # end of distribution specific definitions
  
@@ -25,24 +25,26 @@
  
  %define bdir %{_builddir}/%{name}-%{main_version}
  
-@@ -121,6 +121,7 @@ BuildRequires: libGeoIP-devel
+@@ -121,6 +121,8 @@ BuildRequires: libGeoIP-devel
          --with-mail_ssl_module \
          --with-file-aio \
          --with-ipv6 \
 +        --add-module=./naxsi_src \
++        --add-module=./headers-more-nginx-module \
          %{?with_http2:--with-http_v2_module}")
  
  Summary: High performance web server
-@@ -144,6 +145,8 @@ Source10: nginx.suse.logrotate
+@@ -144,6 +146,9 @@ Source10: nginx.suse.logrotate
  Source11: nginx-debug.service
  Source12: COPYRIGHT
  Source13: njs-%{module_njs_shaid}.tar.gz
 +Source14: naxsi.tar.gz
 +Source15: naxsi_core.rules
++Source16: headers-more-nginx-module.tar.gz
  
  License: 2-clause BSD-like license
  
-@@ -212,6 +215,7 @@ Dynamic nJScript module for nginx.
+@@ -212,11 +217,13 @@ Dynamic nJScript module for nginx.
  %prep
  %setup -q
  tar xvzf %SOURCE13
@@ -50,7 +52,13 @@
  cp %{SOURCE2} .
  sed -e 's|%%DEFAULTSTART%%|2 3 4 5|g' -e 's|%%DEFAULTSTOP%%|0 1 6|g' \
      -e 's|%%PROVIDES%%|nginx|g' < %{SOURCE2} > nginx.init
-@@ -276,6 +280,8 @@ cd $RPM_BUILD_ROOT%{_sysconfdir}/nginx &
+ sed -e 's|%%DEFAULTSTART%%||g' -e 's|%%DEFAULTSTOP%%|0 1 2 3 4 5 6|g' \
+     -e 's|%%PROVIDES%%|nginx-debug|g' < %{SOURCE2} > nginx-debug.init
++tar xvzf %SOURCE16
+ 
+ %build
+ ./configure %{COMMON_CONFIGURE_ARGS} \
+@@ -276,6 +283,8 @@ cd $RPM_BUILD_ROOT%{_sysconfdir}/nginx &
      $RPM_BUILD_ROOT%{_sysconfdir}/nginx/nginx.conf
  %{__install} -m 644 -p %{SOURCE5} \
      $RPM_BUILD_ROOT%{_sysconfdir}/nginx/conf.d/default.conf
@@ -59,7 +67,7 @@
  
  %{__mkdir} -p $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig
  %{__install} -m 644 -p %{SOURCE3} \
-@@ -349,6 +355,7 @@ cd $RPM_BUILD_ROOT%{_sysconfdir}/nginx &
+@@ -349,6 +358,7 @@ cd $RPM_BUILD_ROOT%{_sysconfdir}/nginx &
  %config(noreplace) %{_sysconfdir}/nginx/koi-utf
  %config(noreplace) %{_sysconfdir}/nginx/koi-win
  %config(noreplace) %{_sysconfdir}/nginx/win-utf
