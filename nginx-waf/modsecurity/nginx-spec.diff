@@ -1,5 +1,5 @@
---- nginx.spec.orig	2016-05-07 11:16:08.336041131 +0000
-+++ nginx.spec	2016-05-07 11:49:45.024682778 +0000
+--- nginx.spec.orig	2016-05-11 14:46:28.587240042 +0000
++++ nginx.spec	2016-05-11 14:56:50.028361988 +0000
 @@ -62,18 +62,18 @@ BuildRequires: libGeoIP-devel
  # end of distribution specific definitions
  
@@ -25,23 +25,25 @@
  
  %define bdir %{_builddir}/%{name}-%{main_version}
  
-@@ -121,6 +121,7 @@ BuildRequires: libGeoIP-devel
+@@ -121,6 +121,8 @@ BuildRequires: libGeoIP-devel
          --with-mail_ssl_module \
          --with-file-aio \
          --with-ipv6 \
 +        --add-module=./modsecurity-2.9.1/nginx/modsecurity \
++        --add-module=./headers-more-nginx-module \
          %{?with_http2:--with-http_v2_module}")
  
  Summary: High performance web server
-@@ -144,6 +145,7 @@ Source10: nginx.suse.logrotate
+@@ -144,6 +146,8 @@ Source10: nginx.suse.logrotate
  Source11: nginx-debug.service
  Source12: COPYRIGHT
  Source13: njs-%{module_njs_shaid}.tar.gz
 +Source14: modsecurity-2.9.1.tar.gz
++Source15: headers-more-nginx-module.tar.gz
  
  License: 2-clause BSD-like license
  
-@@ -217,6 +219,12 @@ sed -e 's|%%DEFAULTSTART%%|2 3 4 5|g' -e
+@@ -217,6 +221,14 @@ sed -e 's|%%DEFAULTSTART%%|2 3 4 5|g' -e
      -e 's|%%PROVIDES%%|nginx|g' < %{SOURCE2} > nginx.init
  sed -e 's|%%DEFAULTSTART%%||g' -e 's|%%DEFAULTSTOP%%|0 1 2 3 4 5 6|g' \
      -e 's|%%PROVIDES%%|nginx-debug|g' < %{SOURCE2} > nginx-debug.init
@@ -51,6 +53,8 @@
 +./configure --enable-standalone-module --disable-mlogc
 +make
 +cd ..
++
++tar xvzf %SOURCE15
  
  %build
  ./configure %{COMMON_CONFIGURE_ARGS} \

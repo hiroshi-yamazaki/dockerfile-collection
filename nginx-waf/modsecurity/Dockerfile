@@ -35,6 +35,11 @@ RUN yum install -y openssl \
   gcc
 
 RUN cp modsecurity-$MOD_SECURITY_VERSION.tar.gz /root/rpmbuild/SOURCES/
+
+RUN git clone https://github.com/openresty/headers-more-nginx-module.git
+RUN tar czf headers-more-nginx-module.tar.gz headers-more-nginx-module
+RUN cp /root/headers-more-nginx-module.tar.gz /root/rpmbuild/SOURCES/
+
 WORKDIR /root/rpmbuild/SPECS
 ADD nginx-spec.diff .
 RUN patch -u nginx.spec < nginx-spec.diff
