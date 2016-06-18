@@ -5,7 +5,7 @@ ADD nginx-Sources.repo /etc/yum.repos.d/nginx-Sources.repo
 RUN yum install -y git less yum-utils rpm-build wget
 
 WORKDIR /root
-ENV NGINX_VERSION 1.9.15-1.el7.ngx
+ENV NGINX_VERSION 1.11.1-1.el7.ngx
 RUN yumdownloader --source nginx-$NGINX_VERSION
 RUN rpm -ivh nginx-$NGINX_VERSION.src.rpm
 

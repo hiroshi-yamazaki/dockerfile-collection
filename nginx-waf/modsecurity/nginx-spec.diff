@@ -1,9 +1,9 @@
---- nginx.spec.orig	2016-05-11 14:46:28.587240042 +0000
-+++ nginx.spec	2016-05-11 14:56:50.028361988 +0000
-@@ -62,18 +62,18 @@ BuildRequires: libGeoIP-devel
+--- nginx.spec.orig	2016-06-18 08:04:17.531634830 +0000
++++ nginx.spec	2016-06-18 08:04:30.151522052 +0000
+@@ -61,18 +61,18 @@ BuildRequires: libGeoIP-devel
  # end of distribution specific definitions
  
- %define main_version                 1.9.15
+ %define main_version                 1.11.1
 -%define main_release                 1%{?dist}.ngx
 +%define main_release                 1%{?dist}.ngx_oro
  %define module_xslt_version          %{main_version}
@@ -19,13 +19,13 @@
 -%define module_perl_release          1%{?dist}.ngx
 +%define module_perl_release          1%{?dist}.ngx_oro
  %define module_njs_shaid             1c50334fbea6
- %define module_njs_version           0.0.20160414.%{module_njs_shaid}
+ %define module_njs_version           %{main_version}.0.0.20160414.%{module_njs_shaid}
 -%define module_njs_release           1%{?dist}.ngx
 +%define module_njs_release           1%{?dist}.ngx_oro
  
  %define bdir %{_builddir}/%{name}-%{main_version}
  
-@@ -121,6 +121,8 @@ BuildRequires: libGeoIP-devel
+@@ -120,6 +120,8 @@ BuildRequires: libGeoIP-devel
          --with-mail_ssl_module \
          --with-file-aio \
          --with-ipv6 \
@@ -34,7 +34,7 @@
          %{?with_http2:--with-http_v2_module}")
  
  Summary: High performance web server
-@@ -144,6 +146,8 @@ Source10: nginx.suse.logrotate
+@@ -143,6 +145,8 @@ Source10: nginx.suse.logrotate
  Source11: nginx-debug.service
  Source12: COPYRIGHT
  Source13: njs-%{module_njs_shaid}.tar.gz
@@ -43,7 +43,7 @@
  
  License: 2-clause BSD-like license
  
-@@ -217,6 +221,14 @@ sed -e 's|%%DEFAULTSTART%%|2 3 4 5|g' -e
+@@ -216,6 +220,14 @@ sed -e 's|%%DEFAULTSTART%%|2 3 4 5|g' -e
      -e 's|%%PROVIDES%%|nginx|g' < %{SOURCE2} > nginx.init
  sed -e 's|%%DEFAULTSTART%%||g' -e 's|%%DEFAULTSTOP%%|0 1 2 3 4 5 6|g' \
      -e 's|%%PROVIDES%%|nginx-debug|g' < %{SOURCE2} > nginx-debug.init
