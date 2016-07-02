@@ -20,3 +20,8 @@
   hostname: postgres94s
   ports:
     - "5432:5432"
+"9.5":
+  build: ./9.5
+  hostname: postgres95
+  ports:
+    - "5432:5432"

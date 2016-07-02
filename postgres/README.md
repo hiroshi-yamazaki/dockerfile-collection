@@ -5,10 +5,10 @@ docker-compose build
 
 - run container
 ```
-docker-compose up -d [9.4 | 9.2]
+docker-compose up -d [9.5 | 9.4 | 9.2]
 ```
 
 - stop container
 ```
-docker-compose stop [9.4 | 9.2]
+docker-compose stop [9.5 | 9.4 | 9.2]
 ```
