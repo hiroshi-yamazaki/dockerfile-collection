@@ -11,5 +11,6 @@ RUN yum install -y httpd less
 RUN yum install -y php70 php70-build php70-php php70-php-cli php70-php-mbstring php70-php-pear php70-php-pdo php70-php-mysqlnd php70-php-xml
 RUN echo "<?php phpinfo(); ?>" > /var/www/html/index.php
 
+VOLUME ["/var/www/html"]
 EXPOSE 80 443
 CMD ["/usr/sbin/httpd", "-DFOREGROUND"]
