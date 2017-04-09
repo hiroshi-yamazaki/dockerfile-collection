@@ -1,0 +1,7 @@
+version: "2"
+services:
+  ssh:
+    hostname: amazon
+    build: .
+    ports:
+      - "2022:22"
