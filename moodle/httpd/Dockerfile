@@ -33,11 +33,6 @@ RUN apk add \
 RUN sed -i -e "s/^#ServerName/ServerName/g" /etc/apache2/httpd.conf
 RUN sed -i -e "s#/var/www/localhost/htdocs#/var/www/localhost/moodle#g" /etc/apache2/httpd.conf
 RUN mkdir /run/apache2
-RUN cd /tmp; wget --no-check-certificate https://download.moodle.org/download.php/direct/stable32/moodle-latest-32.tgz
-RUN tar zxf /tmp/moodle-latest-32.tgz -C /var/www/localhost/
-RUN chown -R apache.apache /var/www/localhost/moodle
-RUN mkdir /var/www/localhost/moodledata
-RUN chown -R apache.apache /var/www/localhost/moodledata
 
 EXPOSE 80 443
 CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]

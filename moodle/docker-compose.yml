@@ -1,5 +1,9 @@
 version: "2"
 services:
+  data:
+    hostname: data
+    build: data
+    command: /bin/true
   httpd:
     hostname: httpd
     build: httpd
@@ -13,6 +17,8 @@ services:
     links:
       - db
       - redis
+    volumes_from:
+      - data:rw
   db:
     hostname: db
     image: mysql
@@ -25,6 +31,8 @@ services:
       MYSQL_DATABASE: moodle
       MYSQL_USER: moodle_user
       MYSQL_PASSWORD: 1234Qwer
+    volumes_from:
+      - data:rw
   redis:
     hostname: redis
     image: redis
