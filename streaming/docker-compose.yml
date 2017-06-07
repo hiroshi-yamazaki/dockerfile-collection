@@ -1,0 +1,10 @@
+version: '2'
+services:
+  nginx:
+    build: ./nginx
+    expose:
+      - 80
+      - 1935
+    ports:
+      - 80:80
+      - 1935:1935
