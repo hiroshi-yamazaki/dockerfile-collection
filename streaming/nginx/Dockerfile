@@ -11,8 +11,10 @@ RUN ./configure --with-http_ssl_module --add-module=../nginx-rtmp-module
 RUN make && make install
 
 WORKDIR /
-RUN mkdir -p /usr/local/nginx/html/hls;
+RUN mkdir -p /usr/local/nginx/html/live
+RUN mkdir -p /usr/local/nginx/html/hls
 ADD nginx.conf /usr/local/nginx/conf/nginx.conf
+ADD video.html /usr/local/nginx/html/index.html
 
-EXPOSE 80 1935
+EXPOSE 80 1935 8080
 CMD ["/usr/local/nginx/sbin/nginx", "-c", "/usr/local/nginx/conf/nginx.conf", "-g", "daemon off;"]
